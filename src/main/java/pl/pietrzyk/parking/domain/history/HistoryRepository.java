@@ -15,8 +15,10 @@ public interface HistoryRepository extends JpaRepository<History, String> {
             "h.currency as currency) from History h where h.driver = ?1 group by h.driver, h.currency")
     List<PaymentSummary> getDriverPaymentSummary(Driver driver);
 
-    @Query("select sum(h.paymentAmount) from History h where h.endDateTime >= ?1 and h.endDateTime < ?2")
-    Optional<BigDecimal> getIntervalPaymentsSummary(LocalDateTime start, LocalDateTime stop);
+    @Query("select new pl.pietrzyk.parking.domain.history.PaymentSummary(sum(h.paymentAmount) as sum, " +
+            "h.currency as currency) from History h where h.endDateTime >= ?1 and h.endDateTime < ?2 " +
+            "group by h.currency")
+    List<PaymentSummary> getIntervalPaymentsSummary(LocalDateTime start, LocalDateTime stop);
 }
 
 

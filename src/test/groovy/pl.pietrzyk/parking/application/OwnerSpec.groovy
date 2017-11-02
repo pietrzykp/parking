@@ -11,7 +11,7 @@ import pl.pietrzyk.parking.domain.rateplan.RatePlanRepository
 
 import java.time.LocalDateTime
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 
 class OwnerSpec extends MockMvcSpec {
 
@@ -59,7 +59,7 @@ class OwnerSpec extends MockMvcSpec {
 
         when:
 
-            def response = mockMvc.perform(post('/owner/day-summary')
+            def response = mockMvc.perform(get('/owner/day-summary')
                 .param('date', "2001-04-21"))
                 .andReturn().response
 
@@ -68,7 +68,8 @@ class OwnerSpec extends MockMvcSpec {
 
         then:
             response.status == 200
-            content.payment == new BigDecimal(150)
+            content.get(0).sum == new BigDecimal(150)
+            content.get(0).currency == "PLN"
 
         cleanup:
             historyRepository.deleteAll()
@@ -76,7 +77,7 @@ class OwnerSpec extends MockMvcSpec {
 
     def "should return 0 for no entries"() {
         when:
-            def response = mockMvc.perform(post('/owner/day-summary')
+            def response = mockMvc.perform(get('/owner/day-summary')
                     .param('date', "2001-04-21"))
                     .andReturn().response
 
@@ -84,6 +85,7 @@ class OwnerSpec extends MockMvcSpec {
 
         then:
             response.status == 200
-            content.payment == BigDecimal.ZERO
+            content.get(0).sum == BigDecimal.ZERO
+            content.get(0).currency == "PLN"
     }
 }
