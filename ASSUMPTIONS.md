@@ -5,6 +5,7 @@ When querying for summary, I get sum of my history payments.
 2. As a parking operator, I check if specific slot is taken in the system, which means that some driver will pay for it.
 I do not check ID of driver or vehicle (in case some user would like to pay for friend's parking)
 3. Every stared hour adds to the payment.
+4. As an owner, I get sum of collected payments, that means parkings that finished on the day provided.
 
 ## Implementation notes
 

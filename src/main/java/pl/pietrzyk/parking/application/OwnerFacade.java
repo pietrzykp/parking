@@ -14,11 +14,11 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-class OwnerFacade {
+public class OwnerFacade {
 
     private final HistoryRepository historyRepository;
 
-    List<PaymentSummary> getDayPaymentsSummary(LocalDate paymentDate) {
+    public List<PaymentSummary> getDayPaymentsSummary(LocalDate paymentDate) {
         LocalDateTime start = LocalDateTime.of
                 (paymentDate.getYear(), paymentDate.getMonth(), paymentDate.getDayOfMonth(), 0, 0);
         LocalDateTime end = start.plus(1, ChronoUnit.DAYS);

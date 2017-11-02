@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.pietrzyk.parking.application.dto.SlotState;
+import pl.pietrzyk.parking.application.exception.ParkingMeterNotFoundException;
 
 @RestController
 @RequestMapping("/operator")
@@ -17,7 +18,7 @@ class OperatorController {
         return operatorFacade.isSlotPaidFor(parkingMeterId);
     }
 
-    @ExceptionHandler
+    @ExceptionHandler(ParkingMeterNotFoundException.class)
     ResponseEntity<String> handleException(Exception exception) {
         return ResponseEntity.badRequest().body(exception.getMessage());
     }

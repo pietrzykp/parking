@@ -11,11 +11,11 @@ import pl.pietrzyk.parking.application.exception.ParkingMeterNotFoundException;
 @Component
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-class OperatorFacade {
+public class OperatorFacade {
 
     private final ParkingMeterRepository parkingMeterRepository;
 
-    SlotState isSlotPaidFor(Long parkingMeterId) {
+    public SlotState isSlotPaidFor(Long parkingMeterId) {
         ParkingMeter parkingMeter = parkingMeterRepository.findById(parkingMeterId)
                 .orElseThrow(ParkingMeterNotFoundException::new);
 

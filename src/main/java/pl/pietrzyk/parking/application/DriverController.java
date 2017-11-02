@@ -5,6 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.pietrzyk.parking.application.dto.ParkingMeterForm;
 import pl.pietrzyk.parking.application.dto.PaymentAmount;
+import pl.pietrzyk.parking.application.exception.DriverNotFoundException;
+import pl.pietrzyk.parking.application.exception.ParkingMeterNotFoundException;
+import pl.pietrzyk.parking.application.exception.ParkingSlotStateException;
 import pl.pietrzyk.parking.domain.history.PaymentSummary;
 
 import javax.validation.Valid;
@@ -32,7 +35,8 @@ class DriverController {
         return driverFacade.getHistorySummary(driverId);
     }
 
-    @ExceptionHandler
+    @ExceptionHandler({ParkingMeterNotFoundException.class, DriverNotFoundException.class,
+            ParkingSlotStateException.class})
     ResponseEntity<String> handleException(Exception exception) {
         return ResponseEntity.badRequest().body(exception.getMessage());
     }

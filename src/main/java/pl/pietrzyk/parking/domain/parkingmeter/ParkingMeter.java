@@ -15,7 +15,7 @@ public class ParkingMeter {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Driver driver;
 
     @Column(nullable = false)

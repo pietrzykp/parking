@@ -28,14 +28,16 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-class DriverFacade {
+public class DriverFacade {
 
     private final DriverRepository driverRepository;
     private final HistoryRepository historyRepository;
     private final ParkingMeterRepository parkingMeterRepository;
 
+    private final static int MIN_STARTED_HOURS = 1;
+
     @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRES_NEW)
-    void startParkingMeter(ParkingMeterForm parkingMeterForm) {
+    public void startParkingMeter(ParkingMeterForm parkingMeterForm) {
         Driver driver = driverRepository.findById(parkingMeterForm.getDriverId()).orElseThrow(DriverNotFoundException::new);
 
         ParkingMeter parkingMeter = parkingMeterRepository.findById(parkingMeterForm.getParkingMeterId())
@@ -53,7 +55,7 @@ class DriverFacade {
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRES_NEW)
-    PaymentAmount stopParkingMeter(ParkingMeterForm parkingMeterForm) {
+    public PaymentAmount stopParkingMeter(ParkingMeterForm parkingMeterForm) {
         Driver driver = driverRepository.findById(parkingMeterForm.getDriverId()).orElseThrow(DriverNotFoundException::new);
 
         ParkingMeter parkingMeter = parkingMeterRepository.findById(parkingMeterForm.getParkingMeterId())
@@ -84,7 +86,7 @@ class DriverFacade {
         return new PaymentAmount(payment);
     }
 
-    List<PaymentSummary> getHistorySummary(Long driverId) {
+    public List<PaymentSummary> getHistorySummary(Long driverId) {
         Driver driver = driverRepository.findById(driverId).orElseThrow(DriverNotFoundException::new);
         return historyRepository.getDriverPaymentSummary(driver);
     }
@@ -92,7 +94,7 @@ class DriverFacade {
     BigDecimal calculatePayment(LocalDateTime start, LocalDateTime end, RatePlan ratePlan) {
         long startedHours = Duration.between(start, end).toHours() + 1;
 
-        if(startedHours < 1)
+        if(startedHours < MIN_STARTED_HOURS)
             return new BigDecimal(0);
 
         BigDecimal paymentAmount = ratePlan.getFirstHourRate();

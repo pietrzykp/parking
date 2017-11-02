@@ -2,8 +2,10 @@ package pl.pietrzyk.parking.application;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import pl.pietrzyk.parking.domain.history.PaymentSummary;
 
 import java.time.LocalDate;
@@ -20,10 +22,5 @@ class OwnerController {
     List<PaymentSummary> daySummary(@RequestParam("date")
                                     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return ownerFacade.getDayPaymentsSummary(date);
-    }
-
-    @ExceptionHandler
-    ResponseEntity<String> handleException(Exception exception) {
-        return ResponseEntity.badRequest().body(exception.getMessage());
     }
 }
