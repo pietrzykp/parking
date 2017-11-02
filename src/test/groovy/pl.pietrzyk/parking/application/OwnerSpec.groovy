@@ -75,7 +75,7 @@ class OwnerSpec extends MockMvcSpec {
             historyRepository.deleteAll()
     }
 
-    def "should return 0 for no entries"() {
+    def "should return empty list for no entries"() {
         when:
             def response = mockMvc.perform(get('/owner/day-summary')
                     .param('date', "2001-04-21"))
@@ -85,7 +85,6 @@ class OwnerSpec extends MockMvcSpec {
 
         then:
             response.status == 200
-            content.get(0).sum == BigDecimal.ZERO
-            content.get(0).currency == "PLN"
+            content.isEmpty
     }
 }
