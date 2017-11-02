@@ -18,7 +18,7 @@ class OperatorController {
     }
 
     @ExceptionHandler
-    ResponseEntity<String> handleItemNotFoundException(Exception exception) {
+    ResponseEntity<String> handleException(Exception exception) {
         return ResponseEntity.badRequest().body(exception.getMessage());
     }
 }

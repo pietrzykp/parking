@@ -19,16 +19,16 @@ class AmountCalculationSpec extends Specification  {
     }
 
     @Unroll
-    def "test1"(LocalDateTime start, LocalDateTime end, RatePlan ratePlan, BigDecimal result) {
+    def "should calculate payment properly" (LocalDateTime start, LocalDateTime end, RatePlan ratePlan,
+                                             BigDecimal result) {
         expect:
-        driverFacade.calculatePayment(start, end, ratePlan) == result
+            driverFacade.calculatePayment(start, end, ratePlan) == result
 
         where:
-
-        start | end | ratePlan | result
-        LocalDateTime.of(2001, 1, 1, 1, 0) | LocalDateTime.of(2001, 1, 1, 1, 9) | getRatePlan(1, 2, 2)| BigDecimal.ONE
-        LocalDateTime.of(2001, 1, 1, 1, 0) | LocalDateTime.of(2001, 1, 1, 5, 0) | getRatePlan(4, 1, 1.5)| BigDecimal.valueOf(12.13)
-        LocalDateTime.of(2001, 1, 1, 1, 0) | LocalDateTime.of(2001, 1, 1, 6, 0) | getRatePlan(0, 2, 1.5)| BigDecimal.valueOf(26.38)
+            start | end | ratePlan | result
+            getDateWithTime(1, 0) | getDateWithTime(1, 9) | getRatePlan(1, 2, 2)| BigDecimal.ONE
+            getDateWithTime(1, 0) | getDateWithTime(5, 0) | getRatePlan(4, 1, 1.5)| BigDecimal.valueOf(12.13)
+            getDateWithTime(1, 0) | getDateWithTime(6, 0) | getRatePlan(0, 2, 1.5)| BigDecimal.valueOf(26.38)
     }
 
     def getRatePlan(double firstHour, double secondHour, double multiplier) {
@@ -36,5 +36,9 @@ class AmountCalculationSpec extends Specification  {
                 secondHourRate: BigDecimal.valueOf(secondHour),
                 afterThirdHourMultiplier: BigDecimal.valueOf(multiplier),
                 currency: RatePlan.Currency.PLN)
+    }
+
+    def getDateWithTime(int hour, int minute) {
+        return LocalDateTime.of(2001, 1, 1, hour, minute)
     }
 }
