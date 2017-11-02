@@ -1,7 +1,7 @@
-#Parking management appication
+# Parking management appication
 Recruitment task implementation - REST API built using Spring Boot.
 
-##User stories
+## User stories
 1. As a driver, I want to start the parking meter, so I don’t have to pay the fine for the invalid
 parking.
 2. As a parking operator, I want to check if the vehicle has started the parking meter.
@@ -9,7 +9,7 @@ parking.
 4. As a driver, I want to know how much I have to pay for parking.
 5. As a parking owner, I want to know how much money was earned during a given day.
 
-##Notes
+## Notes
 
 The parking rates are:
 
@@ -20,7 +20,7 @@ The parking rates are:
 Don’t implement any payment transactions, penalties and so on.
 For now, only one currency is accepted but it’s likely to change in the future.
 
-##Application of recruitment task rules
+## Application of recruitment task rules
 
 1. Java, Spring Boot, tests: Groovy/Spock
 2. Project built by Maven. Run by using start.sh script.

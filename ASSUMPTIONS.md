@@ -1,4 +1,4 @@
-##User story assumptions
+## User story assumptions
 
 1. As a driver, when I stop a parking meter, I also get information on how much money was spent on this single parking. 
 When querying for summary, I get sum of my history payments.
@@ -6,7 +6,7 @@ When querying for summary, I get sum of my history payments.
 I do not check ID of driver or vehicle (in case some user would like to pay for friend's parking)
 3. Every stated hour adds to the payment.
 
-##Implementation notes
+## Implementation notes
 
 1. Payment rates must be present in database, as well as drivers and parking meters, before one can make a query. 
 This implemetation is of required API, and does not include user registration, parking meter registration etc.
