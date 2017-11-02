@@ -14,6 +14,7 @@ parking.
 The parking rates are:
 
 | Driver type | 1st hour | 2nd hour | 3rd and each next hour     |
+| ----------- | -------- | -------- | -------------------------- |
 | Regular     |  1 PLN   | 2 PLN    | 2x more than hour before   |
 | VIP         |   free   | 2 PLN    | 1.5x more than hour before |
 
