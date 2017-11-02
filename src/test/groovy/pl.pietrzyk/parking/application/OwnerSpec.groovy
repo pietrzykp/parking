@@ -2,6 +2,7 @@ package pl.pietrzyk.parking.application
 
 import groovy.json.JsonSlurper
 import org.springframework.beans.factory.annotation.Autowired
+import pl.pietrzyk.parking.MockMvcSpec
 import pl.pietrzyk.parking.domain.driver.Driver
 import pl.pietrzyk.parking.domain.driver.DriverRepository
 import pl.pietrzyk.parking.domain.history.History
@@ -70,9 +71,6 @@ class OwnerSpec extends MockMvcSpec {
             response.status == 200
             content.get(0).sum == new BigDecimal(150)
             content.get(0).currency == "PLN"
-
-        cleanup:
-            historyRepository.deleteAll()
     }
 
     def "should return empty list for no entries"() {
@@ -85,6 +83,6 @@ class OwnerSpec extends MockMvcSpec {
 
         then:
             response.status == 200
-            content.isEmpty
+            content.isEmpty()
     }
 }

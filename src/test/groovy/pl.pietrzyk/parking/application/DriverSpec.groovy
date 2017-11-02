@@ -3,6 +3,7 @@ package pl.pietrzyk.parking.application
 import groovy.json.JsonSlurper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
+import pl.pietrzyk.parking.MockMvcSpec
 import pl.pietrzyk.parking.application.dto.ParkingMeterForm
 import pl.pietrzyk.parking.domain.driver.Driver
 import pl.pietrzyk.parking.domain.driver.DriverRepository

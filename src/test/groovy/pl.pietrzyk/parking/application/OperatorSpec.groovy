@@ -2,6 +2,7 @@ package pl.pietrzyk.parking.application
 
 import groovy.json.JsonSlurper
 import org.springframework.beans.factory.annotation.Autowired
+import pl.pietrzyk.parking.MockMvcSpec
 import pl.pietrzyk.parking.domain.parkingmeter.ParkingMeter
 import pl.pietrzyk.parking.domain.parkingmeter.ParkingMeterRepository
 
@@ -44,9 +45,6 @@ class OperatorSpec extends MockMvcSpec {
         then:
             response.status == 200
             content.isTaken
-
-        cleanup:
-            parkingMeterRepository.deleteAll()
     }
 
     def "should return false if slot is not being paid for"() {
@@ -64,8 +62,5 @@ class OperatorSpec extends MockMvcSpec {
         then:
             response.status == 200
             !content.isTaken
-
-        cleanup:
-            parkingMeterRepository.deleteAll()
     }
 }
